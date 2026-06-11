@@ -1,0 +1,79 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Fake News Detection API",
+    "description": "REST API service containerized for classifying news articles as Real or Fake.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Check API health and model state",
+        "responses": {
+          "200": {
+            "description": "API is online and healthy"
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Retrieve validation performance metrics of the model",
+        "responses": {
+          "200": {
+            "description": "Model performance stats"
+          },
+          "404": {
+            "description": "Metrics file not found"
+          }
+        }
+      }
+    },
+    "/predict": {
+      "post": {
+        "summary": "Predict article legitimacy",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Breaking News Headline"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "Full body text of the article..."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful classification"
+          },
+          "400": {
+            "description": "Invalid payload or model not loaded"
+          }
+        }
+      }
+    },
+    "/train": {
+      "post": {
+        "summary": "Trigger automated training pipeline asynchronously",
+        "responses": {
+          "202": {
+            "description": "Retraining started in the background"
+          },
+          "409": {
+            "description": "Training already running"
+          }
+        }
+      }
+    }
+  }
+}
