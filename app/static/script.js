@@ -51,9 +51,10 @@ document.getElementById('retrain-btn').addEventListener('click', async function(
         if (response.ok) {
             logInterval = setInterval(pollStatus, 2000);
         } else {
+            const data = await response.json().catch(() => ({}));
             btn.disabled = false;
             btn.textContent = 'Retrain Model';
-            consoleBox.textContent += '> Error triggering build.\n';
+            consoleBox.textContent += `> Error: ${data.error || 'Failed to trigger training.'}\n`;
         }
     } catch (err) {
         btn.disabled = false;
