@@ -47,7 +47,14 @@
             {% else %}
             <p>No metrics available. Please train the model.</p>
             {% endif %}
+            {% if is_vercel %}
+            <p class="vercel-warning" style="color: #ffcccc; font-size: 0.9em; margin-bottom: 15px; font-style: italic;">
+                ⚠️ Model retraining is disabled in this cloud deployment (Vercel) due to serverless constraints. Run locally or with Docker to use retraining.
+            </p>
+            <button id="retrain-btn" disabled style="display: none;">Retrain Model</button>
+            {% else %}
             <button id="retrain-btn">Retrain Model</button>
+            {% endif %}
             <pre id="console-box" style="display: none;"></pre>
         </section>
     </div>
