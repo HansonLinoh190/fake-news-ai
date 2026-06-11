@@ -188,5 +188,16 @@ def index():
         is_vercel=IS_VERCEL
     )
 
+@app.errorhandler(Exception)
+def handle_exception(e):
+    import traceback
+    from werkzeug.exceptions import HTTPException
+    if isinstance(e, HTTPException):
+        return e
+    return jsonify({
+        "error": str(e),
+        "traceback": traceback.format_exc().split('\n')
+    }), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
