@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  fake-news-service:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: fake-news-detector
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mounts the models directory to persist trained models and metrics on the host machine
+      - ./fake-news-ai/models:/app/fake-news-ai/models
+    restart: always
