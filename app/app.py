@@ -16,7 +16,10 @@ from pipeline import run_pipeline
 # Detect Vercel environment
 IS_VERCEL = 'VERCEL' in os.environ
 
-app = Flask(__name__)
+app_dir = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__,
+            template_folder=os.path.join(app_dir, 'templates'),
+            static_folder=os.path.join(app_dir, 'static'))
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
