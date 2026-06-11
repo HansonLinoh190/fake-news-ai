@@ -1,0 +1,5 @@
+data/merged.csv
+__pycache__/
+*.pyc
+.vscode/
+.env
