@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-WORKDIR /app
+WORKDIR /app/app
 
 EXPOSE 8000
 

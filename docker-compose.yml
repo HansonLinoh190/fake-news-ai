@@ -10,5 +10,5 @@ services:
       - "8000:8000"
     volumes:
       # Mounts the models directory to persist trained models and metrics on the host machine
-      - ./fake-news-ai/models:/app/fake-news-ai/models
+      - ./models:/app/models
     restart: always
