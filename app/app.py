@@ -62,7 +62,12 @@ def health():
         "status": "healthy",
         "model_loaded": model is not None,
         "training_in_progress": training_in_progress,
-        "timestamp": time.time()
+        "timestamp": time.time(),
+        "template_folder": app.template_folder,
+        "root_path": app.root_path,
+        "app_dir": app_dir,
+        "base_dir": base_dir,
+        "dir_contents": os.listdir(app_dir) if os.path.exists(app_dir) else None
     }), 200
 
 @app.route('/metrics', methods=['GET'])
