@@ -1,7 +1,0 @@
-data/
-__pycache__/
-*.pyc
-.git
-.vscode
-dockerfile
-docker-compose.yml
