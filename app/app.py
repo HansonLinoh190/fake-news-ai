@@ -7,7 +7,8 @@ import time
 from flask import Flask, request, jsonify, render_template, send_file
 
 # Resolve project path and imports
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+app_dir = os.path.dirname(os.path.abspath(__file__))
+base_dir = os.path.dirname(app_dir)
 sys.path.append(os.path.join(base_dir, "src"))
 
 from preprocess import clean_text
@@ -27,7 +28,6 @@ app = Flask(__name__,
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-# Mutex and state management
 model_lock = threading.Lock()
 training_in_progress = False
 training_logs = []
@@ -57,7 +57,7 @@ def load_model():
             print("Model files not found. Model needs training.")
         return False
 
-# Load model at startup
+
 load_model()
 
 @app.route('/health', methods=['GET'])
@@ -71,7 +71,10 @@ def health():
         "root_path": app.root_path,
         "app_dir": app_dir,
         "base_dir": base_dir,
-        "dir_contents": os.listdir(app_dir) if os.path.exists(app_dir) else None
+        "app_dir_contents": os.listdir(app_dir) if os.path.exists(app_dir) else None,
+        "base_dir_contents": os.listdir(base_dir) if os.path.exists(base_dir) else None,
+        "models_dir_exists": os.path.exists(models_dir),
+        "models_dir_contents": os.listdir(models_dir) if os.path.exists(models_dir) else None
     }), 200
 
 @app.route('/metrics', methods=['GET'])
